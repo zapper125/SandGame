@@ -9,6 +9,7 @@ public class SandLab
 	public static final int METAL = 1;
 	public static final int SAND = 2;
 	public static final int WATER = 3;
+	public static final int GRASS = 4;
 
 	// do not add any more fields below
 	private int[][] grid;
@@ -27,12 +28,13 @@ public class SandLab
 		String[] names;
 		// Change this value to add more buttons
 		// Step 4,6
-		names = new String[4];
+		names = new String[5];
 		// Each value needs a name for the button
 		names[EMPTY] = "Empty";
 		names[METAL] = "Metal";
 		names[SAND] = "Sand";
 		names[WATER] = "Water";
+		names[GRASS] = "Grass";
 
 		// 1. Add code to initialize the data member grid with same dimensions
 
@@ -74,6 +76,10 @@ public class SandLab
 				{
 					display.setColor(r, c, Color.BLUE);
 				}
+				else if (grid[r][c] == GRASS)
+				{
+					
+				}
 			}
 		}
 	}
@@ -102,7 +108,13 @@ public class SandLab
 				grid[rowNumber + 1][colNumber] = SAND;
 				grid[rowNumber][colNumber] = EMPTY;
 			}
+			else if (grid[rowNumber + 1][colNumber] == WATER)
+			{
+				grid[rowNumber + 1][colNumber] = SAND;
+				grid[rowNumber][colNumber] = WATER;
+			}
 		}
+		
 		// Water movement directions
 
 		if (grid[rowNumber][colNumber] == WATER)
@@ -112,7 +124,7 @@ public class SandLab
 				grid[rowNumber + 1][colNumber] = WATER;
 				grid[rowNumber][colNumber] = EMPTY;
 			} 
-			else if (waterNumber == 1 && colNumber - 1 != 0 && grid[rowNumber][colNumber - 1] == EMPTY)
+			else if (waterNumber == 1 && colNumber - 1 != -1 && grid[rowNumber][colNumber - 1] == EMPTY)
 			{
 				grid[rowNumber][colNumber - 1] = WATER;
 				grid[rowNumber][colNumber] = EMPTY;
