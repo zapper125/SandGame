@@ -10,6 +10,10 @@ public class SandLab
 	public static final int SAND = 2;
 	public static final int WATER = 3;
 	public static final int GRASS = 4;
+	public static final int DIRT = 5;
+	
+	//color brown
+	public static final Color DARK_BROWN = new Color(102,51,0);
 
 	// do not add any more fields below
 	private int[][] grid;
@@ -35,6 +39,7 @@ public class SandLab
 		names[SAND] = "Sand";
 		names[WATER] = "Water";
 		names[GRASS] = "Grass";
+		
 
 		// 1. Add code to initialize the data member grid with same dimensions
 
@@ -78,7 +83,11 @@ public class SandLab
 				}
 				else if (grid[r][c] == GRASS)
 				{
-					
+					display.setColor(r, c, Color.GREEN);
+				}
+				else if (grid[r][c] == DIRT)
+				{
+					display.setColor(r, c, DARK_BROWN);
 				}
 			}
 		}
@@ -135,6 +144,35 @@ public class SandLab
 				grid[rowNumber][colNumber] = EMPTY;
 			}
 		}
+		
+		//----------------------GRASS------------------------
+		if (grid[rowNumber][colNumber] == GRASS)
+		{
+			if (grid[rowNumber-1][colNumber] == WATER || grid[rowNumber+1][colNumber] == WATER || grid[rowNumber][colNumber+1] == WATER || grid[rowNumber][colNumber-1] == WATER)
+			{  
+				grid[rowNumber][colNumber] = DIRT;
+			}
+			else if (grid[rowNumber-1][colNumber] != EMPTY)
+			{
+				grid[rowNumber][colNumber] = DIRT;
+			}
+		}
+		
+		if ((grid[rowNumber][colNumber] == GRASS || grid[rowNumber][colNumber] == DIRT) && rowNumber + 1 != rowScalar)
+		{
+			if (grid[rowNumber + 1][colNumber] == EMPTY)
+			{
+				grid[rowNumber + 1][colNumber] = GRASS;
+				grid[rowNumber][colNumber] = EMPTY;
+			}
+			else if (grid[rowNumber + 1][colNumber] == WATER)
+			{
+				grid[rowNumber + 1][colNumber] = GRASS;
+				grid[rowNumber][colNumber] = WATER;
+			}
+		}
+		//-----------------END-GRASS---------------------
+		
 	}
 
 	// do not modify this method!
